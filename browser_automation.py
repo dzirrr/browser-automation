@@ -16,7 +16,7 @@ HARI_INI = datetime.now(ZoneInfo("Asia/Jakarta")).date()
 # Data yang akan diisi (tambah dict baru untuk beberapa kali isi)
 DATA = [
     {
-        "nama": "Uji dengan github action 1",
+        "nama": "Uji dengan github action 2",
         "tanggal": HARI_INI,
         "kegiatan": "Membuat otomasi formulir Absensi.",
         "pembelajaran": "Memahami cara mengisi formulir absensi secara otomatis.",
