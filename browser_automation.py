@@ -19,7 +19,7 @@ FORM_URL = (
 )
 
 DATA = {
-    "nama": "Peserta Uji Selenium",
+    "nama": "Uji Git Action 1",
     "tanggal": "2026-11-05",
     "uraian": (
         "Melakukan pengujian browser automation "
