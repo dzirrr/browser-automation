@@ -1,40 +1,22 @@
-
-
-name: Selenium Cloud Test
+name: Isi Form Otomatis
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * 1-5"   # 08:00 WIB, Senin-Jumat (cron memakai UTC)
+  workflow_dispatch:         # tombol "Run workflow" untuk tes manual
 
 jobs:
-  run-selenium:
+  isi:
     runs-on: ubuntu-latest
-
-    timeout-minutes: 10
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1
-
-      - name: Install Selenium
-        run: |
-          python -m pip install --upgrade pip
-          pip install selenium
-
-      - name: Run browser automation
-        run: python browser_automation.py
-
-      - name: Upload screenshot if failed
+      - run: pip install selenium
+      - run: python browser_automation.py
+      - uses: actions/upload-artifact@v4
         if: failure()
-        uses: actions/upload-artifact@v4
         with:
-          name: selenium-error
-          path: screenshots/error_screenshot.png
-          if-no-files-found: ignore
+          name: error-screenshot
+          path: error_*.png
