@@ -1,1 +1,40 @@
 
+
+name: Selenium Cloud Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-selenium:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install Selenium
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium
+
+      - name: Run browser automation
+        run: python browser_automation.py
+
+      - name: Upload screenshot if failed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-error
+          path: screenshots/error_screenshot.png
+          if-no-files-found: ignore
